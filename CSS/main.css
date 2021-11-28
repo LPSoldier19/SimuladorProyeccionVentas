@@ -1,0 +1,4 @@
+.card-ultimas-simulaciones:hover{
+    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.2s ease-in-out;
+}

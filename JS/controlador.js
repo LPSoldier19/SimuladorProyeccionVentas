@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
-    $('#txt-valor-porcentaje-natalidad').val(`${40}%`);
-    $('#txt-valor-porcentaje-mortalidad').val(`${31}%`);
-    $('#txt-poblacion').val(100);
+    $('#txt-precio').val(100);
 
     $('#txt-porcentaje-natalidad').change(function() { 
         porcentajeNatalidad = $('#txt-porcentaje-natalidad').val();
@@ -35,26 +33,26 @@ $(document).ready(function () {
 
     $('#btn-simular').click(function(){
 
-      var poblacion = $('#txt-poblacion').val();
+      var precio = $('#txt-precio').val();
       var años = $('#txt-anios').val();
-      var porcentajeNatalidad = $('#txt-porcentaje-natalidad').val();
-      var porcentajeMortalidad = $('#txt-porcentaje-mortalidad').val();
+    //   var porcentajeMortalidad = $('#txt-porcentaje-mortalidad').val();
 
       if(años>1){
-        if(poblacion>=10000){
+        if(precio>=100){
           document.getElementById('card-discapacidad').classList.remove('d-none');
           document.getElementById('card-mortalidad').classList.remove('d-none');
           document.getElementById('card-natalidad').classList.remove('d-none');
-          document.getElementById('grafico-area').classList.remove('d-none');
+          document.getElementById('card-regional').classList.remove('d-none');
           pFinal=[];
           pGeneroNatalidad=[];
           pGeneroMortalidad=[];
           pNatalidadesTiposDiscapacidad=[];
-          dibujarGraficoGeneral();
+          mapaRegional();
           dibujarGraficoNatalidad();
           dibujarGraficoMortalidad();
           dibujarGraficoDiscapacidad();
-          valoresEstadisticos(poblacion,años,porcentajeMortalidad,porcentajeNatalidad);
+          valoresEstadisticos(precio,años,porcentajeMortalidad,porcentajeNatalidad);
+
         }
         else{
           alert('Los datos ingresados no son validos');
@@ -93,7 +91,6 @@ $(document).ready(function () {
 
     });
 
-    mapaRegional();
 
 });
 
