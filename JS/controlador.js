@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('#txt-valor-porcentaje-natalidad').val(`${40}%`);
     $('#txt-valor-porcentaje-mortalidad').val(`${31}%`);
-    $('#txt-poblacion').val(10000);
+    $('#txt-poblacion').val(100);
 
     $('#txt-porcentaje-natalidad').change(function() { 
         porcentajeNatalidad = $('#txt-porcentaje-natalidad').val();
@@ -25,17 +25,13 @@ $(document).ready(function () {
         document.getElementById('card-discapacidad').classList.add('d-none');
         document.getElementById('card-mortalidad').classList.add('d-none');
         document.getElementById('card-natalidad').classList.add('d-none');
-        document.getElementById('grafico-area').classList.add('d-none');
+        document.getElementById('card-regional').classList.add('d-none');
         pFinal=[];
         pGeneroNatalidad=[];
         pGeneroMortalidad=[];
         pNatalidadesTiposDiscapacidad=[];
 
     });
-
-    function mapaRegional(){
-
-    }
 
     $('#btn-simular').click(function(){
 
@@ -77,7 +73,7 @@ $(document).ready(function () {
         document.getElementById('card-discapacidad').classList.add('d-none');
         document.getElementById('card-mortalidad').classList.add('d-none');
         document.getElementById('card-natalidad').classList.add('d-none');
-        document.getElementById('grafico-area').classList.add('d-none');
+        document.getElementById('card-regional').classList.add('d-none');
         pFinal=[];
         pGeneroNatalidad=[];
         pGeneroMortalidad=[];
@@ -89,13 +85,15 @@ $(document).ready(function () {
       document.getElementById('card-discapacidad').classList.add('d-none');
       document.getElementById('card-mortalidad').classList.add('d-none');
       document.getElementById('card-natalidad').classList.add('d-none');
-      document.getElementById('grafico-area').classList.add('d-none');
+      document.getElementById('card-regional').classList.add('d-none');
       pFinal=[];
       pGeneroNatalidad=[];
       pGeneroMortalidad=[];
       pNatalidadesTiposDiscapacidad=[];
 
     });
+
+    mapaRegional();
 
 });
 
@@ -154,6 +152,43 @@ function valoresEstadisticos(poblacion,numeroAnios,porcentajeMortalidad,porcenta
     poblacionAuxiliar=x1;
   }
 
+}
+
+
+function mapaRegional(){
+    google.charts.load('current', {
+        'packages':['geochart'],
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        google.charts.load('current', {
+            'packages': ['geochart'],
+            'mapsApiKey': 'AIzaSyBikQ4kDo8W_lr3H3yKd2jibvoCsYugkvA'
+          });
+          google.charts.setOnLoadCallback(drawMarkersMap);
+     
+           function drawMarkersMap() {
+           var data = google.visualization.arrayToDataTable([
+             ['Departamento',   'Popularidad'],
+             ['Valle',      578],
+             ['Francisco Morazán',     6345],
+             ['Islas de la Bahía',     2110],
+             ['Cortés',     10500],
+             ['Atlántida',     4567],
+             ['Comayagua',     3500],
+           ]);
+     
+           var options = {
+             region: 'HN',
+             resolution: 'provinces',
+             colorAxis: {colors: ['blue']}
+           };
+     
+           var chart = new google.visualization.GeoChart(document.getElementById('grafico-regional'));
+           chart.draw(data, options);
+         };
+      }
 }
 
 
