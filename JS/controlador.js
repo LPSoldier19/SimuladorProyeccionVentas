@@ -39,9 +39,9 @@ $(document).ready(function () {
 
       if(años>1){
         if(precio>=100){
-          document.getElementById('card-discapacidad').classList.remove('d-none');
-          document.getElementById('card-mortalidad').classList.remove('d-none');
-          document.getElementById('card-natalidad').classList.remove('d-none');
+          // document.getElementById('card-discapacidad').classList.remove('d-none');
+          // document.getElementById('card-mortalidad').classList.remove('d-none');
+          // document.getElementById('card-natalidad').classList.remove('d-none');
           document.getElementById('card-regional').classList.remove('d-none');
           pFinal=[];
           pGeneroNatalidad=[];
