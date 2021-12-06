@@ -7,6 +7,15 @@ $(document).ready(function () {
         $('#txt-valor-porcentaje-natalidad').val(`${porcentajeNatalidad}%`)
     });
 
+    $('#chk-producto-mercado').change(function(){
+      if( $('#chk-producto-mercado').prop('checked') ) {
+        $('#ventas-ultimo-año').removeClass('d-none');
+      }
+      else{
+        $('#ventas-ultimo-año').addClass('d-none');
+      }
+    });
+
     $('#txt-porcentaje-mortalidad').change(function() { 
         porcentajemortalidad = $('#txt-porcentaje-mortalidad').val();
         $('#txt-valor-porcentaje-mortalidad').val(`${porcentajemortalidad}%`)
@@ -102,54 +111,54 @@ var pGeneroMortalidad=[];
 
 var pNatalidadesTiposDiscapacidad = [];
 
-function valoresEstadisticos(poblacion,numeroAnios,porcentajeMortalidad,porcentajeNatalidad){
-  var poblacionAuxiliar = Number(poblacion);
-  pFinal.push(['Año','Poblacion','Mortalidad','Natalidad']);
-  pGeneroNatalidad.push(['Año', 'Hombres', 'Mujeres']);
-  pGeneroMortalidad.push(['Año', 'Hombres', 'Mujeres']);
-  pNatalidadesTiposDiscapacidad.push(['Año', 'Motriz','Mental','Ambas']);
+// function valoresEstadisticos(poblacion,numeroAnios,porcentajeMortalidad,porcentajeNatalidad){
+//   var poblacionAuxiliar = Number(poblacion);
+//   pFinal.push(['Año','Poblacion','Mortalidad','Natalidad']);
+//   pGeneroNatalidad.push(['Año', 'Hombres', 'Mujeres']);
+//   pGeneroMortalidad.push(['Año', 'Hombres', 'Mujeres']);
+//   pNatalidadesTiposDiscapacidad.push(['Año', 'Motriz','Mental','Ambas']);
 
-  for(i=1;i<=numeroAnios;i++){
-    var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-    var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-    var x1=poblacionAuxiliar+(natalidad)-(mortalidad);
-    pFinal.push([String(i),x1,natalidad,mortalidad]);
-    poblacionAuxiliar=x1;
-  }
+//   for(i=1;i<=numeroAnios;i++){
+//     var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
+//     var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
+//     var x1=poblacionAuxiliar+(natalidad)-(mortalidad);
+//     pFinal.push([String(i),x1,natalidad,mortalidad]);
+//     poblacionAuxiliar=x1;
+//   }
 
-  for(j=1;j<=numeroAnios;j++){
-    var natalidadGeneral=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-    var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-    var natalidadHombres=natalidadGeneral*((50.41)/100);
-    var natalidadMujeres=natalidadGeneral*((49.58)/100);
-    var x1=poblacionAuxiliar+(natalidadGeneral)-(mortalidad);
-    pGeneroNatalidad.push([String(j),natalidadHombres,natalidadMujeres]);
-    poblacionAuxiliar=x1;
-  }
+//   for(j=1;j<=numeroAnios;j++){
+//     var natalidadGeneral=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
+//     var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
+//     var natalidadHombres=natalidadGeneral*((50.41)/100);
+//     var natalidadMujeres=natalidadGeneral*((49.58)/100);
+//     var x1=poblacionAuxiliar+(natalidadGeneral)-(mortalidad);
+//     pGeneroNatalidad.push([String(j),natalidadHombres,natalidadMujeres]);
+//     poblacionAuxiliar=x1;
+//   }
 
-  for(k=1;k<=numeroAnios;k++){
-    var mortalidadGeneral=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-    var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-    var mortalidadHombres=mortalidadGeneral*((17)/100);
-    var mortalidadMujeres=mortalidadGeneral*((12)/100);
-    var x1=poblacionAuxiliar+(natalidad)-(mortalidadGeneral);
-    pGeneroMortalidad.push([String(k),mortalidadHombres,mortalidadMujeres]);
-    poblacionAuxiliar=x1;
-  }
+//   for(k=1;k<=numeroAnios;k++){
+//     var mortalidadGeneral=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
+//     var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
+//     var mortalidadHombres=mortalidadGeneral*((17)/100);
+//     var mortalidadMujeres=mortalidadGeneral*((12)/100);
+//     var x1=poblacionAuxiliar+(natalidad)-(mortalidadGeneral);
+//     pGeneroMortalidad.push([String(k),mortalidadHombres,mortalidadMujeres]);
+//     poblacionAuxiliar=x1;
+//   }
 
-  for(m=1;m<=numeroAnios;m++){
-    var natalidadGeneral2=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-    var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-    var natalidadDiscapacidad=natalidadGeneral2*(0.05);
-    var discapacidadMotrices=natalidadDiscapacidad*(0.6);
-    var discapacidadMentales=natalidadDiscapacidad*(0.4);
-    var discapacidadAmbas=natalidadDiscapacidad*(0.2);
-    var x1=poblacionAuxiliar+(natalidadGeneral)-(mortalidad);
-    pNatalidadesTiposDiscapacidad.push([String(m),discapacidadMotrices,discapacidadMentales,discapacidadAmbas]);
-    poblacionAuxiliar=x1;
-  }
+//   for(m=1;m<=numeroAnios;m++){
+//     var natalidadGeneral2=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
+//     var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
+//     var natalidadDiscapacidad=natalidadGeneral2*(0.05);
+//     var discapacidadMotrices=natalidadDiscapacidad*(0.6);
+//     var discapacidadMentales=natalidadDiscapacidad*(0.4);
+//     var discapacidadAmbas=natalidadDiscapacidad*(0.2);
+//     var x1=poblacionAuxiliar+(natalidadGeneral)-(mortalidad);
+//     pNatalidadesTiposDiscapacidad.push([String(m),discapacidadMotrices,discapacidadMentales,discapacidadAmbas]);
+//     poblacionAuxiliar=x1;
+//   }
 
-}
+// }
 
 
 function mapaRegional(){
@@ -168,12 +177,12 @@ function mapaRegional(){
            function drawMarkersMap() {
            var data = google.visualization.arrayToDataTable([
              ['Departamento',   'Popularidad'],
-             ['Valle',      578],
              ['Francisco Morazán',     6345],
-             ['Islas de la Bahía',     2110],
              ['Cortés',     10500],
              ['Atlántida',     4567],
              ['Comayagua',     3500],
+             ['Choluteca',     3500],
+             ['Olancho',     3500],
            ]);
      
            var options = {

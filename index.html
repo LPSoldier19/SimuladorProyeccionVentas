@@ -26,6 +26,16 @@
                                             <label for="txt-precio">Ingrese el precio del producto:</label>
                                             <input class="form-control" type="number" name="txt-precio" id="txt-precio" min="100" max="5000">
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="chk-producto-mercado">
+                                            <label class="form-check-label" for="chk-producto-mercado">
+                                              Mi producto ya esta en el mercado
+                                            </label>
+                                          </div>
+                                        <div class="form-group my-2 d-none" id="ventas-ultimo-año">
+                                            <label for="txt-precio">Ingrese las Ventas del Último Año:</label>
+                                            <input class="form-control" type="number" name="txt-precio" id="txt-precio" min="100" max="5000">
+                                        </div>
                                         <div class="form-group my-2">
                                             <label for="txt-poblacion">Numero de años:</label>
                                             <input class="form-control" type="number" name="txt-anios" id="txt-anios" min="2" value="2">
@@ -33,10 +43,10 @@
                                         <div class="form-group my-2">
                                             <label for="txt-categoria">Seleccione una categoria:</label>
                                             <select name="" id="" class="form-control">
-                                                <option value="">Categoria 1</option>
-                                                <option value="">Categoria 2</option>
-                                                <option value="">Categoria 3</option>
-                                                <option value="">Categoria 4</option>
+                                                <option value="">Panaderia</option>
+                                                <option value="">Frutas y Verduras</option>
+                                                <option value="">Lacteos</option>
+                                                <option value="">Embutidos</option>
                                             </select>
                                         </div>
                                         <!-- <div class="form-group">
@@ -48,6 +58,7 @@
                                             <button style="width: 40%;" type="button" id="btn-limpiar" class="btn btn-outline-warning">Limpiar</button>
                                             <button style="width: 40%;" id="btn-simular" type="button" class="btn btn-outline-success">Simular</button>
                                             <button style="width: 40%;" id="btn-detener" type="button" class="btn btn-outline-danger mt-2">Detener</button>
+                                            <button style="width: 40%;" id="btn-detener" type="button" class="btn btn-outline-primary mt-2" disabled>Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -60,6 +71,8 @@
                                             <h6>Precio: L. 200</h6>
                                             <h6>Años: 4</h6>
                                             <h6>Categoria: Categoria 1</h6>
+                                            <h6>Ventas Iniciales: 10000 unidades</h6>
+                                            <h6>Ventas Finales: 10000 unidades</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -71,6 +84,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card text-center d-none" id="card-regional">
+                                        <h5>Mapa de Aceptación de Producto</h5>
+                                        <small>En este mapa se mostrara la proyección de ventas del producto al finalizar la simulación</small>
                                         <div id="grafico-regional" class="card-body" style="width: auato; height: 500px;"></div>
                                     </div>
                                     
