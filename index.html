@@ -38,15 +38,16 @@
                                         </div>
                                         <div class="form-group my-2">
                                             <label for="txt-poblacion">Numero de años:</label>
-                                            <input class="form-control" type="number" name="txt-anios" id="txt-anios" min="2" value="2">
+                                            <input class="form-control" type="number" name="txt-anios" id="txt-anios" min="1" value="1" max="3">
                                         </div>
                                         <div class="form-group my-2">
                                             <label for="txt-categoria">Seleccione una categoria:</label>
-                                            <select name="" id="" class="form-control">
+                                            <select name="slc-categorias" id="slc-categorias" class="form-control">
+                                                <option value="">Refrescos</option>
                                                 <option value="">Panaderia</option>
-                                                <option value="">Frutas y Verduras</option>
-                                                <option value="">Lacteos</option>
-                                                <option value="">Embutidos</option>
+                                                <option value="">Cosméticos</option>
+                                                <option value="">Salud</option>
+                                                <option value="">Golosinas</option>
                                             </select>
                                         </div>
                                         <!-- <div class="form-group">
@@ -91,20 +92,13 @@
                                     
                                 </div>
                                 <div class="col-12 mt-2">
-                                    <div class="card text-center d-none" id="card-mortalidad">
-                                        <div id="grafico-mortalidad" class="card-body"></div>
+                                    <div class="card text-center d-none" id="card-casos">
+                                        <div id="grafico-casos" class="card-body"></div>
                                     </div>
                                 </div>
                                 <div class="col-12 mt-2">
-                                    <div class="card text-center d-none" id="card-natalidad">
-                                        <div id="grafico-natalidad" class="card-body"></div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-2">
-                                    <div class="card text-center d-none" id="card-discapacidad">
-                                        <div class="card-body">
-                                            <div id="grafico-discapacidad"></div>
-                                        </div>
+                                    <div class="card text-center d-none" id="card-crecimiento-departamento">
+                                        <div id="grafico-crecimiento-departamento" class="card-body"></div>
                                     </div>
                                 </div>
                             </div>

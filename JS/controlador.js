@@ -1,3 +1,7 @@
+var porcentajeCrecimiento = 0;
+var ventasIniciales = 0;
+
+
 $(document).ready(function () {
 
     $('#txt-precio').val(100);
@@ -42,14 +46,8 @@ $(document).ready(function () {
 
     $('#btn-simular').click(function(){
 
-      var precio = $('#txt-precio').val();
-      var años = $('#txt-anios').val();
-    //   var porcentajeMortalidad = $('#txt-porcentaje-mortalidad').val();
-
-      if(años>1){
-        if(precio>=100){
-          // document.getElementById('card-discapacidad').classList.remove('d-none');
-          // document.getElementById('card-mortalidad').classList.remove('d-none');
+          document.getElementById('card-casos').classList.remove('d-none');
+          document.getElementById('card-crecimiento-departamento').classList.remove('d-none');
           // document.getElementById('card-natalidad').classList.remove('d-none');
           document.getElementById('card-regional').classList.remove('d-none');
           pFinal=[];
@@ -57,35 +55,11 @@ $(document).ready(function () {
           pGeneroMortalidad=[];
           pNatalidadesTiposDiscapacidad=[];
           mapaRegional();
-          dibujarGraficoNatalidad();
-          dibujarGraficoMortalidad();
-          dibujarGraficoDiscapacidad();
-          valoresEstadisticos(precio,años,porcentajeMortalidad,porcentajeNatalidad);
+          graficoCasos();
+          graficoCrecimientoDepartamentos();
 
-        }
-        else{
-          alert('Los datos ingresados no son validos');
-          document.getElementById('card-discapacidad').classList.add('d-none');
-          document.getElementById('card-mortalidad').classList.add('d-none');
-          document.getElementById('card-natalidad').classList.add('d-none');
-          document.getElementById('grafico-area').classList.add('d-none');
-          pFinal=[];
-          pGeneroNatalidad=[];
-          pGeneroMortalidad=[];
-          pNatalidadesTiposDiscapacidad=[];
-        }
-      }
-      else{
-        alert('Los datos ingresados no son validos');
-        document.getElementById('card-discapacidad').classList.add('d-none');
-        document.getElementById('card-mortalidad').classList.add('d-none');
-        document.getElementById('card-natalidad').classList.add('d-none');
-        document.getElementById('card-regional').classList.add('d-none');
-        pFinal=[];
-        pGeneroNatalidad=[];
-        pGeneroMortalidad=[];
-        pNatalidadesTiposDiscapacidad=[];
-      }
+          //valoresEstadisticos(precio,años,porcentajeMortalidad,porcentajeNatalidad);
+
     });
 
     $('#btn-detener').click(function(){
@@ -176,7 +150,7 @@ function mapaRegional(){
      
            function drawMarkersMap() {
            var data = google.visualization.arrayToDataTable([
-             ['Departamento',   'Popularidad'],
+             ['Departamento',   'No. de Ventas'],
              ['Francisco Morazán',     6345],
              ['Cortés',     10500],
              ['Atlántida',     4567],
@@ -195,6 +169,79 @@ function mapaRegional(){
            chart.draw(data, options);
          };
       }
+}
+
+function graficoCasos(){
+  google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Guardians of the Galaxy');
+      data.addColumn('number', 'The Avengers');
+      data.addColumn('number', 'Transformers: Age of Extinction');
+
+      data.addRows([
+        [1,  37.8, 80.8, 41.8],
+        [2,  30.9, 69.5, 32.4],
+        [3,  25.4,   57, 25.7],
+        [4,  11.7, 18.8, 10.5],
+        [5,  11.9, 17.6, 10.4],
+        [6,   8.8, 13.6,  7.7],
+        [7,   7.6, 12.3,  9.6],
+        [8,  12.3, 29.2, 10.6],
+        [9,  16.9, 42.9, 14.8],
+        [10, 12.8, 30.9, 11.6],
+        [11,  5.3,  7.9,  4.7],
+        [12,  6.6,  8.4,  5.2],
+        [13,  4.8,  6.3,  3.6],
+        [14,  4.2,  6.2,  3.4]
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Box Office Earnings in First Two Weeks of Opening',
+          subtitle: 'in millions of dollars (USD)'
+        },
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('grafico-casos'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+}
+
+function graficoCrecimientoDepartamentos(){
+  
+  google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho'],
+          ['2014', 1000, 400, 200, 600,780,890],
+          ['2015', 1000, 400, 200, 600,780,890],
+          ['2016', 1000, 400, 200, 600,780,890],
+          ['2017', 1000, 400, 200, 600,780,890]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          height: 500
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('grafico-crecimiento-departamento'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
 }
 
 
