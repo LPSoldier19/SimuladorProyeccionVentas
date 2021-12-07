@@ -4,6 +4,7 @@
 
 ((Vo-Vf)/Vo)*100% (Peor de los casos)
 
+
 # Datos iniciales:
 
 Bimbo: 291,926,000

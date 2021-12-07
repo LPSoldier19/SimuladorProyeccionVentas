@@ -24,7 +24,7 @@
                                     <form>
                                         <div class="form-group my-2">
                                             <label for="txt-precio">Ingrese el precio del producto:</label>
-                                            <input class="form-control" type="number" name="txt-precio" id="txt-precio" min="100" max="5000">
+                                            <input class="form-control" type="number" name="txt-precio" id="txt-precio" min="15">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="chk-producto-mercado">
@@ -34,7 +34,7 @@
                                           </div>
                                         <div class="form-group my-2 d-none" id="ventas-ultimo-año">
                                             <label for="txt-precio">Ingrese las Ventas del Último Año:</label>
-                                            <input class="form-control" type="number" name="txt-precio" id="txt-precio" min="100" max="5000">
+                                            <input class="form-control" type="number" name="txt-ventas-ultimo-año" id="txt-ventas-ultimo-año" min="10000">
                                         </div>
                                         <div class="form-group my-2">
                                             <label for="txt-poblacion">Numero de años:</label>
@@ -43,11 +43,12 @@
                                         <div class="form-group my-2">
                                             <label for="txt-categoria">Seleccione una categoria:</label>
                                             <select name="slc-categorias" id="slc-categorias" class="form-control">
-                                                <option value="">Refrescos</option>
-                                                <option value="">Panaderia</option>
-                                                <option value="">Cosméticos</option>
-                                                <option value="">Salud</option>
-                                                <option value="">Golosinas</option>
+                                                <option value="0">--Seleccione una Categoria--</option>
+                                                <option value="1">Refrescos</option>
+                                                <option value="2">Panaderia</option>
+                                                <option value="3">Cosméticos</option>
+                                                <option value="4">Salud</option>
+                                                <option value="5">Golosinas</option>
                                             </select>
                                         </div>
                                         <!-- <div class="form-group">

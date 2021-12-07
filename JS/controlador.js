@@ -1,64 +1,116 @@
-var porcentajeCrecimiento = 0;
-var ventasIniciales = 0;
+var ventasIniciales;
+var precio = $('#txt-precio').val();
+var minimo= 0;
+var maximo= 0;
+var porcFMO;
+var porcCOR;
+var porcOLA;
+var porcCHO;
+var porcCOM;
+var porcATL;
 
 
 $(document).ready(function () {
 
-    $('#txt-precio').val(100);
+    $('#txt-precio').val(15);
 
-    $('#txt-porcentaje-natalidad').change(function() { 
-        porcentajeNatalidad = $('#txt-porcentaje-natalidad').val();
-        $('#txt-valor-porcentaje-natalidad').val(`${porcentajeNatalidad}%`)
-    });
+    $('#txt-ventas-ultimo-año').val(10000);
 
     $('#chk-producto-mercado').change(function(){
       if( $('#chk-producto-mercado').prop('checked') ) {
         $('#ventas-ultimo-año').removeClass('d-none');
+        $('#chk-producto-mercado').prop('disabled',true);
+      }
+    });
+
+    $('#slc-categorias').change(function(){
+      
+      if($('#slc-categorias').val()==1){
+        ventasIniciales = 2100;
+        porcFMO=2;
+        porcCOR=2;
+        porcOLA=2;
+        porcCHO=2;
+        porcCOM=2;
+        porcATL=2;
+      }
+      else if($('#slc-categorias').val()==2){
+        ventasIniciales = 2200;
+        porcFMO=2;
+        porcCOR=2;
+        porcOLA=2;
+        porcCHO=2;
+        porcCOM=2;
+        porcATL=2;
+      }
+      else if($('#slc-categorias').val()==3){
+        ventasIniciales = 2300;
+        porcFMO=2;
+        porcCOR=2;
+        porcOLA=2;
+        porcCHO=2;
+        porcCOM=2;
+        porcATL=2;
+      }
+      else if($('#slc-categorias').val()==4){
+        ventasIniciales = 2400;
+        porcFMO=2;
+        porcCOR=2;
+        porcOLA=2;
+        porcCHO=2;
+        porcCOM=2;
+        porcATL=2;
+      }
+      else if($('#slc-categorias').val()==5){
+        ventasIniciales = 2500;
+        porcFMO=2;
+        porcCOR=2;
+        porcOLA=2;
+        porcCHO=2;
+        porcCOM=2;
+        porcATL=2;
       }
       else{
-        $('#ventas-ultimo-año').addClass('d-none');
+        ventasIniciales = 0;
       }
+
     });
+    
+    $('#btn-limpiar').click(function(){
+      $('#chk-producto-mercado').prop('disabled',false);
+      $('#chk-producto-mercado').prop('checked',false);
+      $('#ventas-ultimo-año').addClass('d-none'); 
+      $('#txt-precio').val(15);
+      $('#txt-ventas-ultimo-año').val(10000);
+      $('#slc-categorias').val(0);
+      $('#txt-anios').val(1);
 
-    $('#txt-porcentaje-mortalidad').change(function() { 
-        porcentajemortalidad = $('#txt-porcentaje-mortalidad').val();
-        $('#txt-valor-porcentaje-mortalidad').val(`${porcentajemortalidad}%`)
-    });
-
-    $('#btn-limpiar').click(function(){ 
-        $('#txt-porcentaje-natalidad').val(40);
-        $('#txt-porcentaje-mortalidad').val(31);
-        $('#txt-valor-porcentaje-natalidad').val($('#txt-porcentaje-natalidad').val()+"%");
-        $('#txt-valor-porcentaje-mortalidad').val( $('#txt-porcentaje-mortalidad').val()+"%");
-        $('#txt-poblacion').val(10000);
-        $('#txt-anios').val(2);
-
-        document.getElementById('card-discapacidad').classList.add('d-none');
-        document.getElementById('card-mortalidad').classList.add('d-none');
-        document.getElementById('card-natalidad').classList.add('d-none');
-        document.getElementById('card-regional').classList.add('d-none');
-        pFinal=[];
-        pGeneroNatalidad=[];
-        pGeneroMortalidad=[];
-        pNatalidadesTiposDiscapacidad=[];
+      document.getElementById('card-regional').classList.add('d-none');
+      document.getElementById('card-casos').classList.add('d-none');
+      document.getElementById('card-crecimiento-departamento').classList.add('d-none');
 
     });
 
     $('#btn-simular').click(function(){
 
-          document.getElementById('card-casos').classList.remove('d-none');
-          document.getElementById('card-crecimiento-departamento').classList.remove('d-none');
-          // document.getElementById('card-natalidad').classList.remove('d-none');
-          document.getElementById('card-regional').classList.remove('d-none');
-          pFinal=[];
-          pGeneroNatalidad=[];
-          pGeneroMortalidad=[];
-          pNatalidadesTiposDiscapacidad=[];
-          mapaRegional();
-          graficoCasos();
-          graficoCrecimientoDepartamentos();
+      if( $('#chk-producto-mercado').prop('checked') ) {
+        ventasIniciales = Number($('#txt-ventas-ultimo-año').val());
+      }
 
-          //valoresEstadisticos(precio,años,porcentajeMortalidad,porcentajeNatalidad);
+      console.log(ventasIniciales);
+      document.getElementById('card-casos').classList.remove('d-none');
+      document.getElementById('card-crecimiento-departamento').classList.remove('d-none');
+      // document.getElementById('card-natalidad').classList.remove('d-none');
+      document.getElementById('card-regional').classList.remove('d-none');
+      pFinal=[];
+      pGeneroNatalidad=[];
+      pGeneroMortalidad=[];
+      pNatalidadesTiposDiscapacidad=[];
+      mapaRegional();
+      graficoCasos();
+      graficoCrecimientoDepartamentos();
+
+      //valoresEstadisticos(precio,años,porcentajeMortalidad,porcentajeNatalidad);
 
     });
 
@@ -77,20 +129,17 @@ $(document).ready(function () {
 
 });
 
-var pFinal=[];
+var grafRegional=[];
 
-var pGeneroNatalidad=[];
+var grafCasos=[];
 
-var pGeneroMortalidad=[];
+var grafCrecDepto=[];
 
-var pNatalidadesTiposDiscapacidad = [];
 
 // function valoresEstadisticos(poblacion,numeroAnios,porcentajeMortalidad,porcentajeNatalidad){
 //   var poblacionAuxiliar = Number(poblacion);
-//   pFinal.push(['Año','Poblacion','Mortalidad','Natalidad']);
-//   pGeneroNatalidad.push(['Año', 'Hombres', 'Mujeres']);
-//   pGeneroMortalidad.push(['Año', 'Hombres', 'Mujeres']);
-//   pNatalidadesTiposDiscapacidad.push(['Año', 'Motriz','Mental','Ambas']);
+//   grafRegional.push(['Departamento','No. de Ventas']);
+//   grafCrecDepto.push(['Año', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho']);
 
 //   for(i=1;i<=numeroAnios;i++){
 //     var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
@@ -178,10 +227,10 @@ function graficoCasos(){
     function drawChart() {
 
       var data = new google.visualization.DataTable();
-      data.addColumn('number', 'Day');
-      data.addColumn('number', 'Guardians of the Galaxy');
-      data.addColumn('number', 'The Avengers');
-      data.addColumn('number', 'Transformers: Age of Extinction');
+      data.addColumn('number', 'Año');
+      data.addColumn('number', 'Crecimiento Positivo');
+      data.addColumn('number', 'Crecimiento Negativo');
+      data.addColumn('number', 'Crecimiento Pseudoaleatorio');
 
       data.addRows([
         [1,  37.8, 80.8, 41.8],
@@ -202,10 +251,9 @@ function graficoCasos(){
 
       var options = {
         chart: {
-          title: 'Box Office Earnings in First Two Weeks of Opening',
-          subtitle: 'in millions of dollars (USD)'
+          title: 'Casos de Proyección de Ventas',
+          subtitle: 'Se mostraran los distintos casos que se pueden generar para las ventas a través de los años'
         },
-        width: 900,
         height: 500
       };
 
@@ -222,7 +270,7 @@ function graficoCrecimientoDepartamentos(){
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho'],
+          ['Año', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho'],
           ['2014', 1000, 400, 200, 600,780,890],
           ['2015', 1000, 400, 200, 600,780,890],
           ['2016', 1000, 400, 200, 600,780,890],
