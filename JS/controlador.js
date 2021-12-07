@@ -26,7 +26,7 @@ $(document).ready(function () {
     $('#slc-categorias').change(function(){
       
       if($('#slc-categorias').val()==1){
-        ventasIniciales = 2100;
+        ventasIniciales = 102126;
         porcFMO=0.25;
         porcCOR=0.32;
         porcOLA=0.12;
@@ -37,46 +37,46 @@ $(document).ready(function () {
         maximo= 0.087;
       }
       else if($('#slc-categorias').val()==2){
-        ventasIniciales = 2200;
-        porcFMO=3;
-        porcCOR=3;
-        porcOLA=3;
-        porcCHO=3;
-        porcCOM=3;
-        porcATL=3;
+        ventasIniciales = 80300;
+        porcFMO=0.34;
+        porcCOR=0.31;
+        porcOLA=0.11;
+        porcCHO=0.7;
+        porcCOM=0.5;
+        porcATL=0.12;
         minimo= -0.0213;
         maximo= 0.0213;
       }
       else if($('#slc-categorias').val()==3){
-        ventasIniciales = 2300;
-        porcFMO=2;
-        porcCOR=2;
-        porcOLA=2;
-        porcCHO=2;
-        porcCOM=2;
-        porcATL=2;
+        ventasIniciales = 27740;
+        porcFMO=0.37;
+        porcCOR=0.29;
+        porcOLA=0.09;
+        porcCHO=0.05;
+        porcCOM=0.08;
+        porcATL=0.12;
         minimo= -0.0602;
         maximo= 0.0602;
       }
       else if($('#slc-categorias').val()==4){
-        ventasIniciales = 2400;
-        porcFMO=2;
-        porcCOR=2;
-        porcOLA=2;
-        porcCHO=2;
-        porcCOM=2;
-        porcATL=2;
+        ventasIniciales = 164250;
+        porcFMO=0.21;
+        porcCOR=0.25;
+        porcOLA=0.19;
+        porcCHO=0.11;
+        porcCOM=0.09;
+        porcATL=0.15;
         minimo= -0.0405;
         maximo= 0.0405;
       }
       else if($('#slc-categorias').val()==5){
-        ventasIniciales = 2500;
-        porcFMO=2;
-        porcCOR=2;
-        porcOLA=2;
-        porcCHO=2;
-        porcCOM=2;
-        porcATL=2;
+        ventasIniciales = 240900;
+        porcFMO=0.23;
+        porcCOR=0.22;
+        porcOLA=0.15;
+        porcCHO=0.11;
+        porcCOM=0.12;
+        porcATL=0.17;
         minimo= -0.0505;
         maximo= 0.0505;
       }
@@ -84,7 +84,6 @@ $(document).ready(function () {
         ventasIniciales = 0;
       }
 
-      console.log(porcFMO);
 
     });
     
