@@ -22,21 +22,21 @@ Bayer: 41,400,000
 Dove: 51,000,000,000
 
 # Variación Bimbo:
-    minimo: -2.13
-    maximo: 2.13
+    minimo= -2.13
+    maximo= 2.13
 
 # Variación Coca Cola:
-    minimo: -8.72
-    maximo: 8.72
+    minimo= -8.72
+    maximo= 8.72
 
 # Variacion Bayer:
-    minimo: -4.05
-    maximo: 4.05
+    minimo= -4.05
+    maximo= 4.05
 
 # Variacion Dove:
-    minimo: -6.02
-    maximo: 6.02
+    minimo= -6.02
+    maximo= 6.02
 
 # Variacion Lays:
-    minimo: -5.05
-    maximo: 5.05
+    minimo= -5.05
+    maximo= 5.05

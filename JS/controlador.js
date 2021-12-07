@@ -27,21 +27,25 @@ $(document).ready(function () {
       
       if($('#slc-categorias').val()==1){
         ventasIniciales = 2100;
-        porcFMO=2;
-        porcCOR=2;
-        porcOLA=2;
-        porcCHO=2;
-        porcCOM=2;
-        porcATL=2;
+        porcFMO=0.25;
+        porcCOR=0.32;
+        porcOLA=0.12;
+        porcCHO=0.08;
+        porcCOM=0.10;
+        porcATL=0.13;
+        minimo= -0.087;
+        maximo= 0.087;
       }
       else if($('#slc-categorias').val()==2){
         ventasIniciales = 2200;
-        porcFMO=2;
-        porcCOR=2;
-        porcOLA=2;
-        porcCHO=2;
-        porcCOM=2;
-        porcATL=2;
+        porcFMO=3;
+        porcCOR=3;
+        porcOLA=3;
+        porcCHO=3;
+        porcCOM=3;
+        porcATL=3;
+        minimo= -0.0213;
+        maximo= 0.0213;
       }
       else if($('#slc-categorias').val()==3){
         ventasIniciales = 2300;
@@ -51,6 +55,8 @@ $(document).ready(function () {
         porcCHO=2;
         porcCOM=2;
         porcATL=2;
+        minimo= -0.0602;
+        maximo= 0.0602;
       }
       else if($('#slc-categorias').val()==4){
         ventasIniciales = 2400;
@@ -60,6 +66,8 @@ $(document).ready(function () {
         porcCHO=2;
         porcCOM=2;
         porcATL=2;
+        minimo= -0.0405;
+        maximo= 0.0405;
       }
       else if($('#slc-categorias').val()==5){
         ventasIniciales = 2500;
@@ -69,10 +77,14 @@ $(document).ready(function () {
         porcCHO=2;
         porcCOM=2;
         porcATL=2;
+        minimo= -0.0505;
+        maximo= 0.0505;
       }
       else{
         ventasIniciales = 0;
       }
+
+      console.log(porcFMO);
 
     });
     
@@ -97,21 +109,31 @@ $(document).ready(function () {
         ventasIniciales = Number($('#txt-ventas-ultimo-año').val());
       }
 
-      console.log(ventasIniciales);
-      document.getElementById('card-casos').classList.remove('d-none');
-      document.getElementById('card-crecimiento-departamento').classList.remove('d-none');
-      // document.getElementById('card-natalidad').classList.remove('d-none');
-      document.getElementById('card-regional').classList.remove('d-none');
-      pFinal=[];
-      pGeneroNatalidad=[];
-      pGeneroMortalidad=[];
-      pNatalidadesTiposDiscapacidad=[];
-      mapaRegional();
-      graficoCasos();
-      graficoCrecimientoDepartamentos();
+      var categoria = $('#slc-categorias').val();
+      var precioProducto = $('#txt-precio').val();
+      var cantidadAnios = $('#txt-anios').val();
 
-      //valoresEstadisticos(precio,años,porcentajeMortalidad,porcentajeNatalidad);
+      if(precioProducto>=15){
+        if(1<cantidadAnios<=10){
+          if(categoria!=0){
+            document.getElementById('card-casos').classList.remove('d-none');
+            document.getElementById('card-crecimiento-departamento').classList.remove('d-none');
+            document.getElementById('card-regional').classList.remove('d-none');
+            grafRegional=[];
+            grafCasos=[];
+            grafCrecDepto=[];
+            mapaRegional();
+            graficoCasos();
+            graficoCrecimientoDepartamentos();
+            valoresEstadisticos(precioProducto,ventasIniciales,cantidadAnios);
+          }
+          else{
+            alert('Los datos ingresados son incorrectos');
+          }
+        }
+      }
 
+      
     });
 
     $('#btn-detener').click(function(){
@@ -136,52 +158,69 @@ var grafCasos=[];
 var grafCrecDepto=[];
 
 
-// function valoresEstadisticos(poblacion,numeroAnios,porcentajeMortalidad,porcentajeNatalidad){
-//   var poblacionAuxiliar = Number(poblacion);
-//   grafRegional.push(['Departamento','No. de Ventas']);
-//   grafCrecDepto.push(['Año', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho']);
+function valoresEstadisticos(precio,ventasUltimoAnio,numeroAnios){
+  var ventasIniciales = Number(ventasUltimoAnio)*Number(precio);
+  var ventasFMO;
+  var ventasCOR;
+  var ventasOLA;
+  var ventasCHO;
+  var ventasCOM;
+  var ventasATL; 
+  grafRegional.push(['Departamento','No. de Ventas']);
+  grafCrecDepto.push(['Año', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho']);
+  
+  //llenar Array GrafRegional
+  for(i=1;i<=numeroAnios;i++){
+    ventasFMO = ventasIniciales*porcFMO;
+    ventasCOR = ventasIniciales*porcCOR;
+    ventasOLA = ventasIniciales*porcOLA;
+    ventasCHO = ventasIniciales*porcCHO;
+    ventasCOM = ventasIniciales*porcCOM;
+    ventasATL = ventasIniciales*porcATL;
+    var x1 = ventasIniciales+(ventasIniciales*(Math.random() * (maximo - minimo) + minimo));
+    ventasIniciales=x1;
+  }
 
-//   for(i=1;i<=numeroAnios;i++){
-//     var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-//     var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-//     var x1=poblacionAuxiliar+(natalidad)-(mortalidad);
-//     pFinal.push([String(i),x1,natalidad,mortalidad]);
-//     poblacionAuxiliar=x1;
-//   }
+  var ventasAuxiliares = ventasIniciales;
+  var ventasAuxiliares2 = ventasIniciales;
+  var ventasAuxiliares3 = ventasIniciales;
 
-//   for(j=1;j<=numeroAnios;j++){
-//     var natalidadGeneral=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-//     var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-//     var natalidadHombres=natalidadGeneral*((50.41)/100);
-//     var natalidadMujeres=natalidadGeneral*((49.58)/100);
-//     var x1=poblacionAuxiliar+(natalidadGeneral)-(mortalidad);
-//     pGeneroNatalidad.push([String(j),natalidadHombres,natalidadMujeres]);
-//     poblacionAuxiliar=x1;
-//   }
+  //llenar array grafCasos
+  for(j=1;j<=numeroAnios;j++){
+    var crecimientoPositivo=ventasAuxiliares2+(ventasAuxiliares2*maximo);
+    var crecimientoNegativo=ventasAuxiliares3+(ventasAuxiliares3*minimo);
+    var crecimientoPseudoaleatorio=ventasAuxiliares+(ventasAuxiliares*(Math.random() * (maximo - minimo) + minimo));
+    var x2 = ventasAuxiliares+(ventasAuxiliares*(Math.random() * (maximo - minimo) + minimo));
+    var x3 = ventasAuxiliares2+(ventasAuxiliares2*maximo);
+    var x4 = ventasAuxiliares3+(ventasAuxiliares3*minimo);
+    grafCasos.push([j,Math.round(crecimientoPositivo),Math.round(crecimientoNegativo),Math.round(crecimientoPseudoaleatorio)]);
+    ventasAuxiliares=x2;
+    ventasAuxiliares2=x3;
+    ventasAuxiliares3=x4;
+  }
 
-//   for(k=1;k<=numeroAnios;k++){
-//     var mortalidadGeneral=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-//     var natalidad=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-//     var mortalidadHombres=mortalidadGeneral*((17)/100);
-//     var mortalidadMujeres=mortalidadGeneral*((12)/100);
-//     var x1=poblacionAuxiliar+(natalidad)-(mortalidadGeneral);
-//     pGeneroMortalidad.push([String(k),mortalidadHombres,mortalidadMujeres]);
-//     poblacionAuxiliar=x1;
-//   }
+  //llenar array grafCrecDpto
+  for(k=1;k<=numeroAnios;k++){
+    ventasFMO = ventasIniciales*porcFMO;
+    ventasCOR = ventasIniciales*porcCOR;
+    ventasOLA = ventasIniciales*porcOLA;
+    ventasCHO = ventasIniciales*porcCHO;
+    ventasCOM = ventasIniciales*porcCOM;
+    ventasATL = ventasIniciales*porcATL;
+    var x1 = ventasIniciales+(ventasIniciales*(Math.random() * (maximo - minimo) + minimo));
+    grafCrecDepto.push([`${k}`, Math.round(ventasFMO), Math.round(ventasCOR), Math.round(ventasATL), Math.round(ventasCOM), Math.round(ventasCHO), Math.round(ventasOLA)]);
+    ventasIniciales=x1;
+  }
 
-//   for(m=1;m<=numeroAnios;m++){
-//     var natalidadGeneral2=poblacionAuxiliar*(Number(porcentajeNatalidad)/100);
-//     var mortalidad=poblacionAuxiliar*(Number(porcentajeMortalidad)/100);
-//     var natalidadDiscapacidad=natalidadGeneral2*(0.05);
-//     var discapacidadMotrices=natalidadDiscapacidad*(0.6);
-//     var discapacidadMentales=natalidadDiscapacidad*(0.4);
-//     var discapacidadAmbas=natalidadDiscapacidad*(0.2);
-//     var x1=poblacionAuxiliar+(natalidadGeneral)-(mortalidad);
-//     pNatalidadesTiposDiscapacidad.push([String(m),discapacidadMotrices,discapacidadMentales,discapacidadAmbas]);
-//     poblacionAuxiliar=x1;
-//   }
+  grafRegional.push(['Francisco Morazán',Math.round(ventasFMO)]);
+  grafRegional.push(['Cortés',Math.round(ventasCOR)]);
+  grafRegional.push(['Atlántida',Math.round(ventasATL)]);
+  grafRegional.push(['Comayagua',Math.round(ventasCOM)]);
+  grafRegional.push(['Choluteca',Math.round(ventasCHO)]);
+  grafRegional.push(['Olancho',Math.round(ventasOLA)]);
 
-// }
+  
+}
 
 
 function mapaRegional(){
@@ -198,15 +237,7 @@ function mapaRegional(){
           google.charts.setOnLoadCallback(drawMarkersMap);
      
            function drawMarkersMap() {
-           var data = google.visualization.arrayToDataTable([
-             ['Departamento',   'No. de Ventas'],
-             ['Francisco Morazán',     6345],
-             ['Cortés',     10500],
-             ['Atlántida',     4567],
-             ['Comayagua',     3500],
-             ['Choluteca',     3500],
-             ['Olancho',     3500],
-           ]);
+           var data = google.visualization.arrayToDataTable(grafRegional);
      
            var options = {
              region: 'HN',
@@ -232,22 +263,7 @@ function graficoCasos(){
       data.addColumn('number', 'Crecimiento Negativo');
       data.addColumn('number', 'Crecimiento Pseudoaleatorio');
 
-      data.addRows([
-        [1,  37.8, 80.8, 41.8],
-        [2,  30.9, 69.5, 32.4],
-        [3,  25.4,   57, 25.7],
-        [4,  11.7, 18.8, 10.5],
-        [5,  11.9, 17.6, 10.4],
-        [6,   8.8, 13.6,  7.7],
-        [7,   7.6, 12.3,  9.6],
-        [8,  12.3, 29.2, 10.6],
-        [9,  16.9, 42.9, 14.8],
-        [10, 12.8, 30.9, 11.6],
-        [11,  5.3,  7.9,  4.7],
-        [12,  6.6,  8.4,  5.2],
-        [13,  4.8,  6.3,  3.6],
-        [14,  4.2,  6.2,  3.4]
-      ]);
+      data.addRows(grafCasos);
 
       var options = {
         chart: {
@@ -269,18 +285,11 @@ function graficoCrecimientoDepartamentos(){
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Año', 'Francisco Morazán', 'Cortés', 'Atlántida', 'Comayagua', 'Choluteca', 'Olancho'],
-          ['2014', 1000, 400, 200, 600,780,890],
-          ['2015', 1000, 400, 200, 600,780,890],
-          ['2016', 1000, 400, 200, 600,780,890],
-          ['2017', 1000, 400, 200, 600,780,890]
-        ]);
+        var data = google.visualization.arrayToDataTable(grafCrecDepto);
 
         var options = {
           chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            title: 'Proyección de Ventas por Departamentos'
           },
           height: 500
         };
