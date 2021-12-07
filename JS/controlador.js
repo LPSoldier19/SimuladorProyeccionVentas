@@ -12,6 +12,20 @@ var porcATL;
 
 $(document).ready(function () {
 
+  // $.ajax({
+  //   url: "ajax/api.php?accion=obtener-lista-empresas",
+  //   type: "GET",
+  //   dataType: 'json',
+  //   success:function(response){
+  //       for(var i=0;i<response.length;i++){
+  //           $('#slc-empresa-devolucion').append('<option value="'+response[i].idEmpresa+'">'+response[i].nombreEmpresa+'</option>');
+  //       }   
+  //   },
+  //   error:function(e){
+  //       console.log(e);
+  //   }
+  // });
+
     $('#txt-precio').val(15);
 
     $('#txt-ventas-ultimo-año').val(10000);
@@ -144,6 +158,24 @@ $(document).ready(function () {
       pGeneroNatalidad=[];
       pGeneroMortalidad=[];
       pNatalidadesTiposDiscapacidad=[];
+
+    });
+
+    $('#btn-guardar').click(function(){
+
+
+      // $.ajax({
+      //   url: "ajax/api.php?accion=agregar-devolucion",
+      //   method: "POST",
+      //   data: parametros,
+      //   dataType: "json",
+      //   success:function(respuesta){
+      //       location.reload();
+      //   },
+      //   error:function(e){
+      //       console.log(e);
+      //   }
+      // });
 
     });
 
