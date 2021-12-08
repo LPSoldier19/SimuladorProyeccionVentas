@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int NOT NULL AUTO_INCREMENT,
   `categoria` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Dumping data for table `categorias`
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `simulaciones` (
   `Categoria` int NOT NULL,
   PRIMARY KEY (`idSimulacion`),
   KEY `Categoria` (`Categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) AUTO_INCREMENT=3;
 
 --
 -- Dumping data for table `simulaciones`
