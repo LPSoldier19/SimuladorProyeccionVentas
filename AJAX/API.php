@@ -9,13 +9,13 @@
     switch ($_GET["accion"]){
 
         case "obtener-lista-simulaciones":
-            $empr = new empresas(null,null,null);
-            echo $empr->obtenerListaEmpresas($conexion);
+            $simu = new simulaciones(null,null,null,null,null,null);
+            echo $simu->verRegistroSimulaciones($conexion);
         break;
 
         case "guardar-simulacion":
-            $agrdev = new devoluciones(null,$_POST["Total_Devolucion"],$_POST["Fecha_Devolucion"],$_POST["Estado"],$_POST["Sucursal"]);
-            echo $agrdev->agregarDevolucion($conexion);
+            $regSim = new simulaciones(null,$_POST["Precio"],$_POST["Anios"],$_POST["VentasIniciales"],$_POST["VentasFinales"],$_POST["Categoria"]);
+            echo $regSim->registarNuevaSimulacion($conexion);
         break;
 
     }

@@ -12,19 +12,8 @@ var porcATL;
 
 $(document).ready(function () {
 
-  // $.ajax({
-  //   url: "ajax/api.php?accion=obtener-lista-empresas",
-  //   type: "GET",
-  //   dataType: 'json',
-  //   success:function(response){
-  //       for(var i=0;i<response.length;i++){
-  //           $('#slc-empresa-devolucion').append('<option value="'+response[i].idEmpresa+'">'+response[i].nombreEmpresa+'</option>');
-  //       }   
-  //   },
-  //   error:function(e){
-  //       console.log(e);
-  //   }
-  // });
+  cargarSimulacionesGuardadas();
+
 
     $('#txt-precio').val(15);
 
@@ -139,6 +128,7 @@ $(document).ready(function () {
             graficoCasos();
             graficoCrecimientoDepartamentos();
             valoresEstadisticos(precioProducto,ventasIniciales,cantidadAnios);
+            $('#btn-guardar').prop("disabled",false);
           }
           else{
             alert('Los datos ingresados son incorrectos');
@@ -150,37 +140,41 @@ $(document).ready(function () {
     });
 
     $('#btn-detener').click(function(){
-      document.getElementById('card-discapacidad').classList.add('d-none');
-      document.getElementById('card-mortalidad').classList.add('d-none');
-      document.getElementById('card-natalidad').classList.add('d-none');
       document.getElementById('card-regional').classList.add('d-none');
-      pFinal=[];
-      pGeneroNatalidad=[];
-      pGeneroMortalidad=[];
-      pNatalidadesTiposDiscapacidad=[];
+      document.getElementById('card-casos').classList.add('d-none');
+      document.getElementById('card-crecimiento-departamento').classList.add('d-none');
+      grafRegional=[];
+      grafCasos=[];
+      grafCrecDepto=[];
 
     });
 
+
     $('#btn-guardar').click(function(){
 
+      var parametros = "Precio=" + $('#txt-precio').val() + "&" + "Anios=" + $("#txt-anios").val() + "&" + "VentasIniciales=" + ventasIniciales + "&" + "VentasFinales=" + ventasFinales + "&" + "Categoria=" + $("#slc-categorias").val();
 
-      // $.ajax({
-      //   url: "ajax/api.php?accion=agregar-devolucion",
-      //   method: "POST",
-      //   data: parametros,
-      //   dataType: "json",
-      //   success:function(respuesta){
-      //       location.reload();
-      //   },
-      //   error:function(e){
-      //       console.log(e);
-      //   }
-      // });
+      $.ajax({
+        url: "ajax/api.php?accion=guardar-simulacion",
+        method: "POST",
+        data: parametros,
+        dataType: "json",
+        success:function(respuesta){
+          alert("Simulación guardada exitosamente");
+          document.getElementById("div-simulaciones").innerHTML="";
+          cargarSimulacionesGuardadas();
+        },
+        error:function(e){
+            console.log(e);
+        }
+      });
 
     });
 
 
 });
+
+var ventasFinales;
 
 var grafRegional=[];
 
@@ -209,7 +203,8 @@ function valoresEstadisticos(precio,ventasUltimoAnio,numeroAnios){
     ventasCOM = ventasIniciales*porcCOM;
     ventasATL = ventasIniciales*porcATL;
     var x1 = ventasIniciales+(ventasIniciales*(Math.random() * (maximo - minimo) + minimo));
-    ventasIniciales=x1;
+    ventasIniciales=Math.round(x1);
+    ventasFinales=ventasIniciales
   }
 
   var ventasAuxiliares = ventasIniciales;
@@ -330,6 +325,33 @@ function graficoCrecimientoDepartamentos(){
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
 
+}
+
+
+
+function cargarSimulacionesGuardadas(){
+  $.ajax({
+    url: "ajax/api.php?accion=obtener-lista-simulaciones",
+    type: "GET",
+    dataType: 'json',
+    success:function(response){
+        console.log(response);
+        for(var i=0;i<response.length;i++){
+            $('#div-simulaciones').append(`<div class="card card-ultimas-simulaciones my-2">
+            <div class="card-body">
+                <h6>Precio: L. ${response[i].Precio}</h6>
+                <h6>Años: ${response[i].Anios}</h6>
+                <h6>Categoria: ${response[i].categoria}</h6>
+                <h6>Ventas Iniciales: ${response[i].VentasIniciales} unidades</h6>
+                <h6>Ventas Finales: ${response[i].VentasFinales} unidades</h6>
+            </div>
+            </div>`);
+        }   
+    },
+    error:function(e){
+        console.log(e);
+    }
+  });
 }
 
 

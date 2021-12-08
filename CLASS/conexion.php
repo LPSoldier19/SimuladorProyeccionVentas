@@ -13,7 +13,7 @@
 			$database =  "proyeccionventas", //colocan el nombre de la base de datos 
 			$usuario =  "root",//usuario
 			$pass =  "",
-			$port = 3308,
+			$port = 3306,
 			$link = null
 		){
 			$this->host = $host;

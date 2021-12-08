@@ -41,7 +41,7 @@
                                             <input class="form-control" type="number" name="txt-anios" id="txt-anios" min="1" value="1" max="10">
                                         </div>
                                         <div class="form-group my-2">
-                                            <label for="txt-categoria">Seleccione una categoria:</label>
+                                            <label for="slc-categorias">Seleccione una categoria:</label>
                                             <select name="slc-categorias" id="slc-categorias" class="form-control">
                                                 <option value="0">--Seleccione una Categoria--</option>
                                                 <option value="1">Refrescos</option>
@@ -60,7 +60,7 @@
                                             <button style="width: 40%;" type="button" id="btn-limpiar" class="btn btn-outline-warning">Limpiar</button>
                                             <button style="width: 40%;" id="btn-simular" type="button" class="btn btn-outline-success">Simular</button>
                                             <button style="width: 40%;" id="btn-detener" type="button" class="btn btn-outline-danger mt-2">Detener</button>
-                                            <button style="width: 40%;" id="btn-detener" type="button" class="btn btn-outline-primary mt-2" disabled>Guardar</button>
+                                            <button style="width: 40%;" id="btn-guardar" type="button" class="btn btn-outline-primary mt-2" disabled>Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -68,14 +68,8 @@
                             <div class="card my-3">
                                 <div class="card-header text-center"><h5>Ultimas Simulaciones</h5></div>
                                 <div class="card-body" style="background-color: rgba(204, 204, 204, 0.253);">
-                                    <div class="card card-ultimas-simulaciones">
-                                        <div class="card-body">
-                                            <h6>Precio: L. 200</h6>
-                                            <h6>Años: 4</h6>
-                                            <h6>Categoria: Categoria 1</h6>
-                                            <h6>Ventas Iniciales: 10000 unidades</h6>
-                                            <h6>Ventas Finales: 10000 unidades</h6>
-                                        </div>
+                                    <div id="div-simulaciones">
+
                                     </div>
                                 </div>
                             </div>
